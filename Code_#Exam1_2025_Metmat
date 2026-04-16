@@ -1,0 +1,24 @@
+import numpy as np
+
+def f(x):
+    parentesis = 11 - (x**2 / 5)
+    return (parentesis**3) * (2*x / 5)
+
+lower_limit = 1
+upper_limit = 32
+rectangles = 100000
+
+delta_x = (upper_limit - lower_limit) / rectangles
+total_area = 0
+
+for i in range(1, rectangles + 1):
+    current_x = lower_limit + (i - 0.5) * delta_x
+    total_area += f(current_x) * delta_x
+
+exact_value = -352660259.6192
+error_absolute = abs(exact_value - total_area)
+
+print(f"Area total: {total_area}")
+print(f"Valor exacto: {exact_value}")
+print(f"Error absoluto: {error_absolute}")
+print(f"Accuracy: {(1 - (error_absolute/abs(exact_value)))*100:.4f}%")
