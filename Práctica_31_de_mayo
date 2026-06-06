@@ -1,0 +1,43 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+# --- Bloque 1: Datos y Matriz ---
+xData = np.array([1.0, 2.0, 5.0]).reshape((3, 1))
+yData = np.array([1.0, 4.0, 3.0])
+
+# --- Bloque 2: Cálculo de alpha y beta ---
+ourModel = LinearRegression()
+ourModel.fit(xData, yData)
+alpha = ourModel.intercept_
+beta = ourModel.coef_[0]
+
+print(f'alpha={alpha:.2f}, beta={beta:.2f}')
+
+# --- Bloque 3: Creación del Gráfico de Resultados ---
+plt.figure()
+
+# A. Dibujamos los puntos (Lo que ya dominabas)
+plt.scatter(xData.flatten(), yData, color='red', label='Datos')
+
+# =====================================================================
+# PASO FINAL: DIBUJAR LA RECTA DE REGRESIÓN
+# =====================================================================
+# Definimos los valores de X en los extremos de tus datos (de 1.0 a 5.0)
+x_extremos = np.array([[1.0], [5.0]])
+
+# Le pedimos al modelo que calcule la altura exacta (y) para esos extremos
+y_predichos = ourModel.predict(x_extremos)
+
+# Dibujamos la línea continua que une ambos extremos en el plano
+plt.plot(x_extremos, y_predichos, color='blue', label=f'Recta: y = {alpha:.2f} + {beta:.2f}x')
+
+# Personalización indispensable para ganar puntos en el examen
+plt.xlabel('Variable X')
+plt.ylabel('Variable Y')
+plt.title('Modelo Final de Regresión Lineal Simple')
+plt.grid(True)
+plt.legend()
+
+# Mostrar el gráfico en pantalla
+plt.show()

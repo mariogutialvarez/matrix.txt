@@ -1,0 +1,56 @@
+import numpy as np 
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+
+xData = np.array([5, 10, 15, 20])
+yData = np.array([10.5, 22, 28.5, 41])
+
+xData = xData.reshape(4,1)
+
+ourmodel = LinearRegression()
+ourmodel.fit (xData, yData)
+
+alpha = ourmodel.intercept_
+beta = ourmodel.coef_[0]
+
+print(f'alpha={alpha:.2f}, beta={beta:.2f}')
+
+plt.figure()
+plt.scatter(xData.flatten(), yData, color='red', label='Relación dosis de fármaco y reducción presión arterial')
+
+
+x_extremos=np.array([0,25]).reshape(-1,1)
+y_predichos=ourmodel.predict(x_extremos)
+
+X_nuevos = np.array([22.5]).reshape(-1, 1)
+Y_nuevos_predichos = ourmodel.predict(X_nuevos)
+
+print(f"Reducción estimada para 22.5 mg de dosis: {Y_nuevos_predichos[0]:.2f}")
+
+plt.scatter(X_nuevos.flatten(), Y_nuevos_predichos, color='blue', marker='*', s=80, label='Predicciones (22.5 mg)')
+plt.plot(x_extremos, y_predichos, color='blue', label= 'Recta de Regresión')
+plt.xlabel('Variable x')
+plt.ylabel('Variable y')
+plt.title('Regresión Lineal')
+plt.grid(True)
+plt.legend()
+plt.show()
+
+B_start= -11
+B_end= 15
+n_points= 1000
+B_values= np.linspace(B_start, B_end, n_points)
+
+def f_aux_B(B):
+    return (10.5-alpha-B*5)**2 + (22-alpha-B*10)**2 + (28.5-alpha-B*15)**2 + (41-alpha-B*20)**2
+
+f_aux_B_values= f_aux_B(B_values)
+
+plt.figure()
+plt.plot(B_values, f_aux_B_values, color='green', label='Suma de errores al cuadrado')
+plt.title('Suma errores al cuadrado')
+plt.xlabel('Valores de pendiente')
+plt.ylabel('Suma de errores al cuadrado')
+plt.grid(True)
+plt.legend()
+plt.show()

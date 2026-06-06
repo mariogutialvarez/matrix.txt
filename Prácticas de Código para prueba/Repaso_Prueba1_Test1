@@ -1,0 +1,43 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 1. Definir la función original y la recta tangente
+def f(x):
+    return x**3 - 3*x**2 + 2
+
+def tangent_line(x):
+    return 9*x - 25
+
+# 2. Generar un rango de valores para el eje X alrededor del punto de interés (x=3)
+x = np.linspace(-1, 4, 500)
+
+# 3. Crear el gráfico
+plt.figure(figsize=(8, 6))
+
+# Graficar las curvas
+plt.plot(x, f(x), label='$f(x) = x^3 - 3x^2 + 2$', color='blue', linewidth=2)
+plt.plot(x, tangent_line(x), label='Recta Tangente: $y = 9x - 25$', color='red', linestyle='--')
+
+# Marcar el punto de tangencia (3, 2)
+plt.scatter(3, 2, color='black', zorder=5)
+plt.text(2.5, 4, 'Punto de Tangencia\n(3, 2)', fontsize=10, color='black')
+
+# Marcar las intersecciones calculadas
+plt.scatter(0, -25, color='green', zorder=5) # Corte eje Y
+plt.text(0.1, -24, '$(0, -25)$', color='green')
+
+plt.scatter(25/9, 0, color='purple', zorder=5) # Corte eje X
+plt.text(2.3, 1, '$(\\frac{25}{9}, 0)$', color='purple')
+
+# Configuración de los ejes y formato
+plt.axhline(0, color='black', linewidth=0.8)
+plt.axvline(0, color='black', linewidth=0.8)
+plt.title('Aproximación Lineal e Intersecciones del Test #1', fontsize=12)
+plt.xlabel('Eje X')
+plt.ylabel('Eje Y')
+plt.ylim(-30, 15) # Ajustamos el límite vertical para apreciar el corte en Y
+plt.grid(True, linestyle=':', alpha=0.6)
+plt.legend(loc='upper left')
+
+# Mostrar el resultado grafico
+plt.show()

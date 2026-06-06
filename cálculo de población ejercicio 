@@ -1,0 +1,13 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+def N(t):
+    return K/(1+((K/N_0)-1)*np.exp(-r*t))
+
+r=0.35
+K=1200
+N_0=40
+t=10
+
+N_t=N(t)
+print(f"población en t={t} dias: {N_t:.1f}")

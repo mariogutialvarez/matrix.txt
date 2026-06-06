@@ -1,0 +1,57 @@
+import numpy as np 
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+
+xData = np.array([4, 8, 12])
+yData = np.array([50, 75, 90])
+
+xData = xData.reshape(3,1)
+
+ourmodel = LinearRegression()
+ourmodel.fit (xData, yData)
+
+alpha = ourmodel.intercept_
+beta = ourmodel.coef_[0]
+
+print(f'alpha={alpha:.2f}, beta={beta:.2f}')
+
+plt.figure()
+plt.scatter(xData.flatten(), yData, color='red', label='Datos de rendimiento y horas de estudio')
+
+
+x_extremos=np.array([0,15]).reshape(-1,1)
+y_predichos=ourmodel.predict(x_extremos)
+
+X_nuevos = np.array([6, 10]).reshape(-1, 1)
+Y_nuevos_predichos = ourmodel.predict(X_nuevos)
+
+print(f"Rendimiento estimado para 6 horas: {Y_nuevos_predichos[0]:.2f}")
+print(f"Rendimiento estimado para 10 horas: {Y_nuevos_predichos[1]:.2f}")
+
+plt.scatter(X_nuevos.flatten(), Y_nuevos_predichos, color='blue', marker='*', s=80, label='Predicciones (6 y 10 horas)')
+plt.plot(x_extremos, y_predichos, color='blue', label= 'Recta de Regresión')
+plt.xlabel('Variable x')
+plt.ylabel('Variable y')
+plt.title('Regresión Lineal')
+plt.grid(True)
+plt.legend()
+plt.show()
+
+B_start= -10
+B_end= 20
+n_points= 1000
+B_values= np.linspace(B_start, B_end, n_points)
+
+def f_aux_B(B):
+    return (50-alpha-B*4)**2 + (75-alpha-B*8)**2 + (90-alpha-B*12)**2
+
+f_aux_B_values= f_aux_B(B_values)
+
+plt.figure()
+plt.plot(B_values, f_aux_B_values, color='green', label='Suma de errores al cuadrado')
+plt.title('Suma errores al cuadrado')
+plt.xlabel('Valores de pendiente')
+plt.ylabel('Suma de errores al cuadrado')
+plt.grid(True)
+plt.legend()
+plt.show()

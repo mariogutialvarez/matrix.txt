@@ -1,0 +1,28 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 1. Definimos el rango de valores para x (del -1 al 3 para ver bien las raíces)
+x = np.linspace(-1, 3, 100)
+
+# 2. Definimos la función f(x)
+y = 3*x**2 - 6*x
+
+# 3. Configuramos el gráfico
+plt.figure(figsize=(8, 5))
+plt.plot(x, y, label='$f(x) = 3x^2 - 6x$', color='blue')
+
+# 4. Agregamos puntos clave (raíces y vértice)
+plt.scatter([0, 2], [0, 0], color='red', label='Raíces (x=0, x=2)')
+plt.scatter([1], [-3], color='green', label='Vértice (x=1)')
+
+# 5. Detalles estéticos
+plt.axhline(0, color='black', linewidth=0.5) # Eje X
+plt.axvline(0, color='black', linewidth=0.5) # Eje Y
+plt.title('Gráfico de la Parábola $f(x) = 3x^2 - 6x$')
+plt.xlabel('x')
+plt.ylabel('f(x)')
+plt.grid(True, linestyle='--', alpha=0.7)
+plt.legend()
+
+# 6. Mostrar gráfico
+plt.show()

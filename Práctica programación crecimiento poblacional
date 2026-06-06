@@ -1,0 +1,28 @@
+import numpy as np 
+import matplotlib.pyplot as plt
+
+def N(t):
+    return K/(1+((K/N_0)-1)*np.exp(-r*t))
+
+r= 0.35
+K=800
+N_0=60
+target=650
+
+N_points=100
+t_inicial=0
+t_final=20
+values_of_t=np.linspace(t_inicial,t_final,N_points)
+values_of_N=N(values_of_t)
+
+def f(t):
+    return N(t) - target
+
+for i in range(20):
+    punto_medio=(t_inicial+t_final)/2
+    if (f(t_inicial)*f(punto_medio)<0):
+        t_final=punto_medio
+    else:
+        t_inicial=punto_medio
+    
+print(f"tiempo para población de 650: {punto_medio:.2f} meses")
